@@ -188,246 +188,244 @@ nav.scrolled {
   box-shadow: 0 0 35px rgba(34,198,105,0.5);
 }
 
-/* ===========================
+/* =========================
    HERO SECTION
-=========================== */
-#hero {
-  min-height: 100vh;
+========================= */
+.hero {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 100vh;
   overflow: hidden;
-  padding: 120px 60px 80px;
+  padding: 140px 7%;
+  background:
+    radial-gradient(circle at top right, rgba(29,111,164,0.18), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(34,198,105,0.15), transparent 35%),
+    #020B08;
 }
 
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-/* Animated gradient orbs */
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  animation: orbFloat 12s ease-in-out infinite;
-  pointer-events: none;
-}
-.orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(27,138,76,0.35) 0%, transparent 70%);
-  top: -100px; left: -150px;
-  animation-delay: 0s;
-}
-.orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(29,111,164,0.3) 0%, transparent 70%);
-  bottom: -100px; right: -100px;
-  animation-delay: -4s;
-}
-.orb-3 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, rgba(46,255,136,0.15) 0%, transparent 70%);
-  top: 40%; left: 55%;
-  animation-delay: -8s;
-}
-
-@keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -40px) scale(1.05); }
-  66% { transform: translate(-20px, 30px) scale(0.95); }
-}
-
-/* Grid overlay */
-.hero-grid {
+.hero-bg-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(34,198,105,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34,198,105,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+
+  background-size: 80px 80px;
+  opacity: 0.3;
 }
 
-/* Particle canvas */
-#particle-canvas {
-  position: absolute;
-  inset: 0;
-  opacity: 0.6;
-}
-
-.hero-content {
+.hero-container {
   position: relative;
   z-index: 5;
-  max-width: 700px;
-  width: 100%;
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
 }
 
 .hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(34,198,105,0.1);
-  border: 1px solid rgba(34,198,105,0.3);
-  border-radius: 100px;
-  padding: 8px 20px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--green-vivid);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 36px;
-  animation: fadeUp 0.8s ease 0.2s both;
-}
-.hero-badge-dot {
-  width: 6px; height: 6px;
-  background: var(--green-glow);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.7); }
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: rgba(34,198,105,0.08);
+  border: 1px solid rgba(34,198,105,0.2);
+  color: #22C669;
+  margin-bottom: 24px;
+  font-size: 14px;
+  letter-spacing: 1px;
 }
 
 .hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(42px, 5vw, 72px);
+  font-size: clamp(52px, 6vw, 92px);
+  line-height: 0.95;
   font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -2px;
   margin-bottom: 28px;
-  animation: fadeUp 0.8s ease 0.4s both;
-}
-.hero-title .line-1 { display: block; color: var(--text-white); }
-.hero-title .line-2 {
-  display: block;
-  background: linear-gradient(120deg, var(--green-glow) 0%, var(--blue-glow) 50%, var(--green-vivid) 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: fadeUp 0.8s ease 0.4s both, gradientShift 4s ease-in-out infinite;
-}
-.hero-title .line-3 { display: block; color: var(--text-white); }
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
 }
 
-.hero-sub {
-  font-size: clamp(16px, 2vw, 20px);
-  color: var(--text-muted);
-  max-width: 640px;
-  margin: 0 auto 48px;
+.hero-title span {
+  color: #22C669;
+}
+
+.hero-subtitle {
+  font-size: 22px;
   line-height: 1.7;
-  font-weight: 300;
-  animation: fadeUp 0.8s ease 0.6s both;
+  color: #9CB3A7;
+  max-width: 720px;
+  margin-bottom: 38px;
 }
 
-.hero-actions {
+.hero-buttons {
   display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: fadeUp 0.8s ease 0.8s both;
+  gap: 18px;
+  margin-bottom: 42px;
 }
-.btn-primary {
-  background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-vivid) 100%);
-  color: white;
-  padding: 16px 40px;
-  border-radius: 100px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s;
-  box-shadow: 0 0 40px rgba(34,198,105,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
-  letter-spacing: 0.3px;
-}
-.btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 0 60px rgba(34,198,105,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
-}
+
+.btn-primary,
 .btn-secondary {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--text-white);
-  padding: 16px 40px;
-  border-radius: 100px;
-  font-size: 15px;
-  font-weight: 500;
+  padding: 18px 34px;
+  border-radius: 16px;
   text-decoration: none;
-  transition: all 0.3s;
-  backdrop-filter: blur(8px);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
+
+.btn-primary {
+  background: linear-gradient(135deg,#1B8A4C,#22C669);
+  color: white;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: white;
+}
+
+.btn-primary:hover,
 .btn-secondary:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(34,198,105,0.4);
   transform: translateY(-3px);
 }
 
-.hero-stats {
+.hero-trust {
   display: flex;
-  justify-content: center;
-  gap: 64px;
-  margin-top: 80px;
-  padding-top: 60px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  animation: fadeUp 0.8s ease 1s both;
-}
-.hero-stat { text-align: center; }
-.hero-stat-num {
-  font-family: var(--font-display);
-  font-size: 40px;
-  font-weight: 800;
-  color: var(--text-white);
-  line-height: 1;
-  background: linear-gradient(135deg, var(--green-glow), var(--blue-glow));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero-stat-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-top: 8px;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+.trust-item {
+  color: #B7C8BF;
+  font-size: 15px;
+}
+
+.hero-right {
+  position: relative;
+}
+
+.hero-globe-container {
+  position: relative;
+  width: 100%;
+  height: 720px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  z-index: 2;
-  animation: fadeIn 1.5s ease 1.5s both;
-}
-.scroll-indicator-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, var(--green-glow), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-.scroll-indicator-text {
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: var(--text-dim);
-  text-transform: uppercase;
+  justify-content: center;
 }
 
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.2); }
+.hero-ring {
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  border: 2px solid rgba(34,198,105,0.15);
+  transform: rotateX(75deg);
+  box-shadow:
+    0 0 80px rgba(34,198,105,0.15),
+    inset 0 0 60px rgba(29,111,164,0.12);
+}
+
+.hero-globe {
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  animation: floatGlobe 6s ease-in-out infinite;
+}
+
+.hero-globe img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 60px rgba(34,198,105,0.35))
+    drop-shadow(0 0 120px rgba(29,111,164,0.18));
+}
+
+@keyframes floatGlobe {
+
+  0%,100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+.floating-card {
+  position: absolute;
+  width: 240px;
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(6,18,14,0.88);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 0 40px rgba(0,0,0,0.25);
+}
+
+.floating-card h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.floating-card p {
+  color: #8FA69A;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.floating-card span {
+  color: #22C669;
+  font-size: 14px;
+}
+
+.card-1 {
+  top: 10%;
+  left: 0%;
+}
+
+.card-2 {
+  top: 12%;
+  right: 0%;
+}
+
+.card-3 {
+  bottom: 12%;
+  right: 0%;
+}
+
+.card-4 {
+  bottom: 12%;
+  left: 0%;
+}
+
+@media(max-width:1100px) {
+
+  .hero-container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-right {
+    margin-top: 80px;
+  }
+
+  .hero-globe-container {
+    height: 540px;
+  }
+
+  .hero-ring {
+    width: 380px;
+    height: 380px;
+  }
+
+  .hero-globe {
+    width: 280px;
+    height: 280px;
+  }
+
+  .floating-card {
+    width: 180px;
+    padding: 16px;
+  }
 }
 
 /* ===========================
@@ -1537,79 +1535,6 @@ footer {
 }
 
 /* ===========================
-   INTERACTIVE PLANET
-=========================== */
-/* ===========================
-   HERO PLANET
-=========================== */
-
-.hero-planet-container {
-  position: absolute;
-  right: 4%;
-  top: 52%;
-  transform: translateY(-50%);
-  width: 650px;
-  height: 650px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.hero-planet {
-  width: 420px;
-  height: 420px;
-  position: relative;
-  z-index: 2;
-  transition: transform 0.15s linear;
-}
-
-.hero-planet img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 0 40px rgba(34,198,105,0.4))
-    drop-shadow(0 0 80px rgba(29,111,164,0.25));
-}
-
-.hero-planet-ring {
-  position: absolute;
-  width: 620px;
-  height: 620px;
-  border-radius: 50%;
-  border: 2px solid rgba(34,198,105,0.14);
-  transform: rotateX(75deg);
-  box-shadow:
-    0 0 60px rgba(34,198,105,0.18),
-    inset 0 0 40px rgba(29,111,164,0.08);
-}
-
-@media (max-width: 1000px) {
-
-  .hero-planet-container {
-    position: relative;
-    width: 100%;
-    height: 360px;
-    right: auto;
-    top: auto;
-    transform: none;
-    margin-top: 40px;
-  }
-
-  .hero-planet {
-    width: 240px;
-    height: 240px;
-  }
-
-  .hero-planet-ring {
-    width: 340px;
-    height: 340px;
-  }
-}
-
-/* ===========================
    QUOTE MODAL
 =========================== */
 
@@ -1809,66 +1734,100 @@ footer {
 <!-- ===========================
      HERO
 =========================== -->
-<section id="hero">
-  <div class="hero-canvas">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="hero-grid"></div>
-    <canvas id="particle-canvas"></canvas>
-  </div>
-  <div class="hero-planet-container">
-    <div class="hero-planet-ring"></div>
+<section id="hero" class="hero">
 
-    <div class="hero-planet" id="planet">
-      <img src="logo.png" alt="CleanSphere">
-    </div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      AI-Powered · Patent Protected · 92.5% Accuracy
-    </div>
+  <div class="hero-bg-grid"></div>
 
-    <h1 class="hero-title">
-      <span class="line-1">Smarter Monitoring.</span>
-      <span class="line-2">Safer Environments.</span>
-      <span class="line-3">Intelligent Future.</span>
-    </h1>
+  <div class="hero-container">
 
-    <p class="hero-sub">
-      Transforming conventional CCTV systems into real-time AI intelligence platforms. Built for campuses, corporates, industries, and governments.
-    </p>
+    <div class="hero-left">
 
-    <div class="hero-actions">
-      <a href="#toms" class="btn-primary">Explore TOMS — Flagship Product</a>
-      <a href="#products" class="btn-secondary">View All Solutions</a>
-    </div>
-
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num" data-target="92.5">0</div>
-        <div class="hero-stat-label">Detection Accuracy %</div>
+      <div class="hero-badge">
+        AI-POWERED ENVIRONMENTAL INTELLIGENCE
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num" data-target="24">0</div>
-        <div class="hero-stat-label">Hours / 7 Days Monitoring</div>
+
+      <h1 class="hero-title">
+        Smarter Monitoring.<br>
+        Safer <span>Environments.</span><br>
+        Intelligent Future.
+      </h1>
+
+      <p class="hero-subtitle">
+        Transforming conventional CCTV systems into real-time AI intelligence platforms for campuses, industries, governments, and smart cities.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#solutions" class="btn-primary">
+          Explore Solutions →
+        </a>
+
+        <button class="btn-secondary openQuoteBtn">
+          Get a Quote →
+        </button>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num" data-target="6">0</div>
-        <div class="hero-stat-label">Months Payback Period</div>
+
+      <div class="hero-trust">
+
+        <div class="trust-item">
+          ⚡ AI-Powered
+        </div>
+
+        <div class="trust-item">
+          📡 Real-Time
+        </div>
+
+        <div class="trust-item">
+          🛡️ Secure
+        </div>
+
+        <div class="trust-item">
+          ☁️ Cloud Connected
+        </div>
+
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num" data-target="4">0</div>
-        <div class="hero-stat-label">Weeks to Deploy</div>
-      </div>
+
     </div>
+
+    <div class="hero-right">
+
+      <div class="hero-globe-container">
+
+        <div class="hero-ring"></div>
+
+        <div class="hero-globe" id="heroGlobe">
+          <img src="logo.png" alt="CleanSphere">
+        </div>
+
+        <div class="floating-card card-1">
+          <h4>AI Detection</h4>
+          <p>Real-time intelligence active</p>
+          <span>● LIVE</span>
+        </div>
+
+        <div class="floating-card card-2">
+          <h4>24/7 Monitoring</h4>
+          <p>Continuous environmental surveillance</p>
+          <span>● ACTIVE</span>
+        </div>
+
+        <div class="floating-card card-3">
+          <h4>Cloud Connected</h4>
+          <p>Secure scalable infrastructure</p>
+          <span>● ONLINE</span>
+        </div>
+
+        <div class="floating-card card-4">
+          <h4>Smart Analytics</h4>
+          <p>Actionable AI insights</p>
+          <span>● RUNNING</span>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="scroll-indicator">
-    <div class="scroll-indicator-line"></div>
-    <div class="scroll-indicator-text">Scroll</div>
-  </div>
 </section>
 
 <!-- MARQUEE TICKER -->
@@ -2666,6 +2625,21 @@ document.getElementById('closeQuote').addEventListener('click', () => {
 document.querySelector('.quote-overlay').addEventListener('click', () => {
   quoteModal.classList.remove('active');
   document.body.style.overflow = 'auto';
+});
+
+</script>
+<script>
+
+const globe = document.getElementById('heroGlobe');
+
+window.addEventListener('mousemove', (e) => {
+
+  const x = (window.innerWidth / 2 - e.pageX) / 40;
+  const y = (window.innerHeight / 2 - e.pageY) / 40;
+
+  globe.style.transform =
+    `rotateY(${x}deg) rotateX(${-y}deg)`;
+
 });
 
 </script>
