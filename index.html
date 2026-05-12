@@ -1,0 +1,2673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanSphere Innovations Pvt. Ltd. — Smarter Monitoring. Safer Environments.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ===========================
+   DESIGN TOKENS & RESET
+=========================== */
+:root {
+  --bg-void: #040C08;
+  --bg-deep: #071210;
+  --bg-surface: #0D1F18;
+  --bg-card: rgba(13,31,24,0.7);
+  --green-primary: #1B8A4C;
+  --green-vivid: #22C669;
+  --green-glow: #2EFF88;
+  --blue-primary: #1D6FA4;
+  --blue-vivid: #2196F3;
+  --blue-glow: #4FC3FF;
+  --text-white: #F0FAF4;
+  --text-muted: #7BA890;
+  --text-dim: #4A6B5A;
+  --gold: #F0B429;
+  --border: rgba(34,198,105,0.18);
+  --border-blue: rgba(33,150,243,0.2);
+  --glow-green: 0 0 40px rgba(46,255,136,0.25);
+  --glow-blue: 0 0 40px rgba(79,195,255,0.25);
+  --radius: 16px;
+  --radius-lg: 24px;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-void);
+  color: var(--text-white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+::selection { background: rgba(34,198,105,0.3); color: var(--green-glow); }
+
+/* ===========================
+   CUSTOM CURSOR
+=========================== */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--green-glow);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(46,255,136,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+  mix-blend-mode: screen;
+}
+.cursor-ring.hovering {
+  width: 56px; height: 56px;
+  border-color: var(--green-vivid);
+  background: rgba(34,198,105,0.08);
+}
+
+/* ===========================
+   SCROLL PROGRESS
+=========================== */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green-glow), var(--blue-glow));
+  z-index: 1000;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* ===========================
+   NAVIGATION
+=========================== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  padding: 20px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(4,12,8,0.92);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 60px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.nav-logo-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.nav-logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.nav-logo-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-white);
+  line-height: 1.2;
+}
+.nav-logo-sub {
+  font-size: 9px;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--green-glow);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.nav-links a:hover { color: var(--text-white); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-vivid));
+  color: white;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(34,198,105,0.3);
+}
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(34,198,105,0.5);
+}
+
+/* ===========================
+   HERO SECTION
+=========================== */
+#hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 120px 60px 80px;
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Animated gradient orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: orbFloat 12s ease-in-out infinite;
+  pointer-events: none;
+}
+.orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(27,138,76,0.35) 0%, transparent 70%);
+  top: -100px; left: -150px;
+  animation-delay: 0s;
+}
+.orb-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(29,111,164,0.3) 0%, transparent 70%);
+  bottom: -100px; right: -100px;
+  animation-delay: -4s;
+}
+.orb-3 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(46,255,136,0.15) 0%, transparent 70%);
+  top: 40%; left: 55%;
+  animation-delay: -8s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.05); }
+  66% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+/* Grid overlay */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(34,198,105,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,198,105,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+}
+
+/* Particle canvas */
+#particle-canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0.6;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(34,198,105,0.1);
+  border: 1px solid rgba(34,198,105,0.3);
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green-vivid);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+  animation: fadeUp 0.8s ease 0.2s both;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  background: var(--green-glow);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.8s ease 0.4s both;
+}
+.hero-title .line-1 { display: block; color: var(--text-white); }
+.hero-title .line-2 {
+  display: block;
+  background: linear-gradient(120deg, var(--green-glow) 0%, var(--blue-glow) 50%, var(--green-vivid) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeUp 0.8s ease 0.4s both, gradientShift 4s ease-in-out infinite;
+}
+.hero-title .line-3 { display: block; color: var(--text-white); }
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-muted);
+  max-width: 640px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+  font-weight: 300;
+  animation: fadeUp 0.8s ease 0.6s both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s ease 0.8s both;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-vivid) 100%);
+  color: white;
+  padding: 16px 40px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 0 40px rgba(34,198,105,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  letter-spacing: 0.3px;
+}
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 60px rgba(34,198,105,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-secondary {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-white);
+  padding: 16px 40px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(34,198,105,0.4);
+  transform: translateY(-3px);
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  margin-top: 80px;
+  padding-top: 60px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  animation: fadeUp 0.8s ease 1s both;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--text-white);
+  line-height: 1;
+  background: linear-gradient(135deg, var(--green-glow), var(--blue-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  animation: fadeIn 1.5s ease 1.5s both;
+}
+.scroll-indicator-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--green-glow), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+.scroll-indicator-text {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.2); }
+}
+
+/* ===========================
+   SECTION SHARED STYLES
+=========================== */
+section {
+  padding: 120px 60px;
+  position: relative;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green-vivid);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--green-vivid);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--text-white);
+  margin-bottom: 24px;
+}
+
+.section-title .highlight {
+  background: linear-gradient(120deg, var(--green-glow), var(--blue-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-desc {
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 600px;
+}
+
+/* Animate on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===========================
+   MARQUEE / TICKER
+=========================== */
+.marquee-wrap {
+  background: rgba(34,198,105,0.06);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-flex;
+  gap: 60px;
+  animation: marqueeScroll 30s linear infinite;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+.marquee-dot {
+  width: 4px; height: 4px;
+  background: var(--green-vivid);
+  border-radius: 50%;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===========================
+   ABOUT SECTION
+=========================== */
+#about {
+  background: var(--bg-deep);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-visual {
+  position: relative;
+  height: 500px;
+}
+.about-orb-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(27,138,76,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.about-card-float {
+  position: absolute;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+}
+.about-card-1 {
+  top: 10%; left: 5%;
+  width: 200px;
+  animation: floatCard 6s ease-in-out infinite;
+}
+.about-card-2 {
+  top: 30%; right: 0;
+  width: 220px;
+  animation: floatCard 6s ease-in-out infinite;
+  animation-delay: -2s;
+}
+.about-card-3 {
+  bottom: 15%; left: 15%;
+  width: 210px;
+  animation: floatCard 6s ease-in-out infinite;
+  animation-delay: -4s;
+}
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+.about-card-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.about-card-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.about-card-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--green-glow);
+}
+.about-card-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.about-text { }
+.mission-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+}
+.mission-card {
+  background: rgba(34,198,105,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.3s;
+}
+.mission-card:hover {
+  background: rgba(34,198,105,0.08);
+  border-color: rgba(34,198,105,0.4);
+  transform: translateY(-4px);
+  box-shadow: var(--glow-green);
+}
+.mission-card-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.mission-card-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 6px;
+}
+.mission-card-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ===========================
+   TOMS FLAGSHIP SECTION
+=========================== */
+#toms {
+  background: var(--bg-void);
+  overflow: hidden;
+}
+.toms-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 80px;
+}
+.toms-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(240,180,41,0.1), rgba(240,180,41,0.05));
+  border: 1px solid rgba(240,180,41,0.3);
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.toms-badge-star { font-size: 14px; }
+
+.toms-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.toms-screen {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--glow-green), 0 40px 100px rgba(0,0,0,0.5);
+}
+.toms-screen-header {
+  background: rgba(255,255,255,0.04);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.toms-screen-dots { display: flex; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #FF5E5B; }
+.dot-y { background: #FFBE2B; }
+.dot-g { background: #2ECC71; }
+.toms-screen-title { font-size: 12px; color: var(--text-muted); }
+
+.toms-screen-body {
+  padding: 24px;
+  min-height: 380px;
+  position: relative;
+}
+
+.cctv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.cctv-feed {
+  aspect-ratio: 16/10;
+  background: #0A1810;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.cctv-label {
+  position: absolute;
+  top: 8px; left: 8px;
+  font-size: 9px;
+  color: var(--green-vivid);
+  letter-spacing: 1px;
+  background: rgba(0,0,0,0.6);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.cctv-live {
+  position: absolute;
+  top: 8px; right: 8px;
+  font-size: 8px;
+  color: #fff;
+  background: #E53E3E;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.cctv-live::before {
+  content: '';
+  width: 4px; height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+.detection-box {
+  position: absolute;
+  border: 2px solid #22C669;
+  border-radius: 4px;
+  animation: boxPulse 3s ease-in-out infinite;
+}
+.detection-label-box {
+  position: absolute;
+  top: -22px; left: -2px;
+  background: var(--green-vivid);
+  color: #000;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+@keyframes boxPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,198,105,0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(34,198,105,0); }
+}
+.cctv-scan-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(34,198,105,0.5), transparent);
+  top: 0;
+  animation: scanLine 3s linear infinite;
+}
+@keyframes scanLine {
+  from { top: 0; }
+  to { top: 100%; }
+}
+.alert-strip {
+  background: rgba(229,62,62,0.08);
+  border: 1px solid rgba(229,62,62,0.3);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: alertPulse 3s ease-in-out infinite;
+}
+@keyframes alertPulse {
+  0%, 100% { border-color: rgba(229,62,62,0.3); }
+  50% { border-color: rgba(229,62,62,0.7); box-shadow: 0 0 20px rgba(229,62,62,0.2); }
+}
+.alert-icon { font-size: 20px; }
+.alert-text-title { font-size: 12px; font-weight: 700; color: #FC8181; }
+.alert-text-sub { font-size: 10px; color: var(--text-muted); }
+.alert-time { margin-left: auto; font-size: 10px; color: var(--green-vivid); }
+
+.toms-features-list { margin-top: 0; }
+.toms-feature-item {
+  display: flex;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.3s;
+}
+.toms-feature-item:last-child { border-bottom: none; }
+.toms-feature-item:hover { transform: translateX(8px); }
+.toms-feature-num {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 800;
+  color: rgba(34,198,105,0.15);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 50px;
+  transition: color 0.3s;
+}
+.toms-feature-item:hover .toms-feature-num { color: rgba(34,198,105,0.4); }
+.toms-feature-body { }
+.toms-feature-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 6px;
+}
+.toms-feature-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.toms-feature-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(34,198,105,0.1);
+  border: 1px solid var(--border);
+  color: var(--green-vivid);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-top: 10px;
+}
+
+.swachh-banner {
+  max-width: 1200px;
+  margin: 60px auto 0;
+  background: linear-gradient(135deg, rgba(240,180,41,0.08) 0%, rgba(34,198,105,0.08) 100%);
+  border: 1px solid rgba(240,180,41,0.2);
+  border-radius: var(--radius-lg);
+  padding: 36px 48px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.swachh-icon { font-size: 48px; flex-shrink: 0; }
+.swachh-text { }
+.swachh-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.swachh-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.swachh-stat {
+  margin-left: auto;
+  text-align: center;
+  flex-shrink: 0;
+}
+.swachh-stat-num {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--gold);
+}
+.swachh-stat-label {
+  font-size: 11px;
+  color: rgba(240,180,41,0.7);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ===========================
+   PRODUCTS SECTION
+=========================== */
+#products {
+  background: var(--bg-deep);
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 60px auto 0;
+}
+.product-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(34,198,105,0.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.product-card:hover {
+  border-color: rgba(34,198,105,0.4);
+  transform: translateY(-8px);
+  box-shadow: var(--glow-green), 0 40px 80px rgba(0,0,0,0.4);
+}
+.product-card:hover::before { opacity: 1; }
+.product-card-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: rgba(34,198,105,0.1);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  margin-bottom: 24px;
+  transition: all 0.3s;
+}
+.product-card:hover .product-card-icon {
+  background: rgba(34,198,105,0.15);
+  box-shadow: var(--glow-green);
+}
+.product-card-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 12px;
+}
+.product-card-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.product-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-vivid);
+  text-decoration: none;
+  transition: gap 0.3s;
+}
+.product-card:hover .product-card-link { gap: 14px; }
+.product-card-arrow { font-size: 16px; }
+.product-card-number {
+  position: absolute;
+  top: 24px; right: 24px;
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ===========================
+   WHY CLEANSPHERE
+=========================== */
+#why {
+  background: var(--bg-void);
+}
+.comparison-table {
+  max-width: 900px;
+  margin: 60px auto 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.comparison-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  background: var(--bg-surface);
+  padding: 20px 32px;
+  gap: 16px;
+}
+.comparison-header-cell {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.comparison-header-cell.ours {
+  color: var(--green-vivid);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.comparison-header-cell.ours::after {
+  content: '★';
+  font-size: 12px;
+}
+.comparison-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  padding: 20px 32px;
+  gap: 16px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.2s;
+  align-items: center;
+}
+.comparison-row:hover {
+  background: rgba(255,255,255,0.02);
+}
+.comparison-feature {
+  font-size: 14px;
+  color: var(--text-white);
+  font-weight: 500;
+}
+.check-yes {
+  font-size: 18px;
+  color: var(--green-vivid);
+}
+.check-no { font-size: 18px; color: #E53E3E; }
+.check-partial { font-size: 18px; color: var(--gold); }
+
+.why-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 60px auto 0;
+}
+.why-card {
+  text-align: center;
+  padding: 40px 32px;
+  background: rgba(34,198,105,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s;
+}
+.why-card:hover {
+  background: rgba(34,198,105,0.08);
+  border-color: rgba(34,198,105,0.3);
+  transform: translateY(-6px);
+}
+.why-card-icon { font-size: 36px; margin-bottom: 16px; }
+.why-card-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 12px;
+}
+.why-card-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ===========================
+   CREDENTIALS
+=========================== */
+#credentials {
+  background: var(--bg-deep);
+  text-align: center;
+}
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 60px auto 0;
+}
+.credential-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px 24px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.credential-card:hover {
+  border-color: rgba(240,180,41,0.4);
+  box-shadow: 0 0 40px rgba(240,180,41,0.15);
+  transform: translateY(-6px);
+}
+.credential-icon { font-size: 40px; margin-bottom: 16px; }
+.credential-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-white);
+  margin-bottom: 6px;
+}
+.credential-sub {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.credential-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ===========================
+   PRICING
+=========================== */
+#pricing {
+  background: var(--bg-void);
+  text-align: center;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 60px auto 0;
+  align-items: start;
+}
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  position: relative;
+  transition: all 0.3s;
+}
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+}
+.pricing-card.featured {
+  border-color: var(--green-vivid);
+  background: rgba(34,198,105,0.05);
+  box-shadow: var(--glow-green);
+}
+.pricing-card.featured:hover {
+  box-shadow: var(--glow-green), 0 40px 80px rgba(0,0,0,0.4);
+}
+.pricing-badge {
+  position: absolute;
+  top: -14px; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--green-primary), var(--green-vivid));
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 20px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.pricing-tier {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.pricing-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-white);
+  margin-bottom: 24px;
+}
+.pricing-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 24px;
+}
+.pricing-features { list-style: none; text-align: left; margin-bottom: 36px; }
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.pricing-features li::before {
+  content: '✓';
+  color: var(--green-vivid);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.pricing-cta {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.pricing-cta-outline {
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.pricing-cta-outline:hover {
+  border-color: rgba(34,198,105,0.4);
+  color: var(--text-white);
+}
+.pricing-cta-filled {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-vivid));
+  color: white;
+  box-shadow: 0 0 30px rgba(34,198,105,0.3);
+}
+.pricing-cta-filled:hover {
+  box-shadow: 0 0 50px rgba(34,198,105,0.5);
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   TIMELINE
+=========================== */
+#timeline {
+  background: var(--bg-deep);
+}
+.timeline-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1000px;
+  margin: 60px auto 0;
+}
+.timeline-steps { }
+.timeline-step {
+  display: flex;
+  gap: 24px;
+  position: relative;
+  padding-bottom: 36px;
+}
+.timeline-step:last-child { padding-bottom: 0; }
+.timeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 42px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(34,198,105,0.4), transparent);
+}
+.timeline-step-dot {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(34,198,105,0.1);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--green-vivid);
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.timeline-step:hover .timeline-step-dot {
+  background: rgba(34,198,105,0.2);
+  box-shadow: var(--glow-green);
+}
+.timeline-step-content { }
+.timeline-step-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 4px;
+}
+.timeline-step-duration {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green-vivid);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.timeline-step-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.payment-cards { }
+.payment-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  transition: all 0.3s;
+}
+.payment-card:hover {
+  border-color: rgba(34,198,105,0.3);
+  background: rgba(34,198,105,0.04);
+}
+.payment-pct {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--green-glow);
+  flex-shrink: 0;
+}
+.payment-info { }
+.payment-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 4px;
+}
+.payment-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.roi-chip {
+  margin-top: 32px;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(34,198,105,0.1), rgba(29,111,164,0.1));
+  border: 1px solid rgba(34,198,105,0.2);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.roi-chip-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.roi-chip-value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--green-glow), var(--blue-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===========================
+   CONTACT / CTA
+=========================== */
+#contact {
+  background: var(--bg-void);
+  text-align: center;
+  padding: 140px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.contact-orb {
+  position: absolute;
+  width: 800px; height: 800px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(27,138,76,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+}
+.contact-desc {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.contact-details {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 60px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.contact-detail-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(34,198,105,0.1);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+.contact-detail:hover .contact-detail-icon {
+  background: rgba(34,198,105,0.2);
+  box-shadow: var(--glow-green);
+}
+.contact-detail-text {
+  text-align: left;
+}
+.contact-detail-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.contact-detail-value {
+  font-size: 14px;
+  color: var(--text-white);
+  font-weight: 500;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+footer {
+  background: var(--bg-deep);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 40px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--green-vivid); }
+
+/* ===========================
+   TECHNICAL CAPABILITIES
+=========================== */
+#tech {
+  background: var(--bg-surface);
+}
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 60px auto 0;
+}
+.tech-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.3s;
+}
+.tech-card:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(34,198,105,0.2);
+  transform: translateX(6px);
+}
+.tech-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(34,198,105,0.15), rgba(29,111,164,0.15));
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.tech-card-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 6px;
+}
+.tech-card-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ===========================
+   INTERACTIVE PLANET
+=========================== */
+/* ===========================
+   HERO PLANET
+=========================== */
+
+.hero-planet-container {
+  position: absolute;
+  right: 4%;
+  top: 52%;
+  transform: translateY(-50%);
+  width: 650px;
+  height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-planet {
+  width: 420px;
+  height: 420px;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.15s linear;
+}
+
+.hero-planet img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 40px rgba(34,198,105,0.4))
+    drop-shadow(0 0 80px rgba(29,111,164,0.25));
+}
+
+.hero-planet-ring {
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  border: 2px solid rgba(34,198,105,0.14);
+  transform: rotateX(75deg);
+  box-shadow:
+    0 0 60px rgba(34,198,105,0.18),
+    inset 0 0 40px rgba(29,111,164,0.08);
+}
+
+@media (max-width: 1000px) {
+
+  .hero-planet-container {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin-top: 40px;
+  }
+
+  .hero-planet {
+    width: 240px;
+    height: 240px;
+  }
+
+  .hero-planet-ring {
+    width: 340px;
+    height: 340px;
+  }
+}
+
+/* ===========================
+   QUOTE MODAL
+=========================== */
+
+.quote-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.quote-modal.active {
+  display: flex;
+}
+
+.quote-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+}
+
+.quote-box {
+  position: relative;
+  width: 90%;
+  max-width: 720px;
+  background: #08110D;
+  border: 1px solid rgba(34,198,105,0.2);
+  border-radius: 24px;
+  padding: 40px;
+  z-index: 2;
+  box-shadow: 0 0 80px rgba(34,198,105,0.15);
+  animation: quoteAnim 0.35s ease;
+}
+
+@keyframes quoteAnim {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.quote-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.quote-header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.quote-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: rgba(34,198,105,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.quote-header h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.quote-header p {
+  color: #8AA193;
+}
+
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.quote-box input,
+.quote-box textarea,
+.quote-box select {
+  width: 100%;
+  padding: 16px;
+  background: #0B1712;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+}
+
+.quote-box textarea {
+  min-height: 140px;
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+.quote-submit {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg,#1B8A4C,#22C669);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.google-form-link {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.google-form-link a {
+  color: #22C669;
+  text-decoration: none;
+}
+
+@media(max-width:768px) {
+  .quote-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-box {
+    padding: 24px;
+  }
+}
+
+/* ===========================
+   RESPONSIVE (basic)
+=========================== */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  nav.scrolled { padding: 12px 24px; }
+  .nav-links { display: none; }
+  section { padding: 80px 24px; }
+  .about-grid, .toms-showcase, .timeline-grid { grid-template-columns: 1fr; }
+  .products-grid, .why-cards, .credentials-grid, .pricing-grid, .tech-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { gap: 32px; }
+  .comparison-header, .comparison-row { grid-template-columns: 1.5fr 1fr 1fr 1fr; padding: 16px; }
+  footer { flex-direction: column; gap: 20px; text-align: center; }
+}
+@media (max-width: 600px) {
+  .products-grid, .why-cards, .credentials-grid, .pricing-grid, .tech-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-wrap: wrap; }
+  .swachh-banner { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ===========================
+     NAVIGATION
+=========================== -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">
+      <img src="logo.png" alt="CleanSphere Logo">
+    </div>
+    <div>
+      <div class="nav-logo-text">CleanSphere</div>
+      <div class="nav-logo-sub">Innovations Pvt. Ltd.</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#toms">TOMS</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#credentials">Credentials</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <button class="nav-cta openQuoteBtn">Get a Quote →</button>
+</nav>
+
+<!-- ===========================
+     HERO
+=========================== -->
+<section id="hero">
+  <div class="hero-canvas">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="hero-grid"></div>
+    <canvas id="particle-canvas"></canvas>
+  </div>
+  <div class="hero-planet-container">
+    <div class="hero-planet-ring"></div>
+
+    <div class="hero-planet" id="planet">
+      <img src="logo.png" alt="CleanSphere">
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      AI-Powered · Patent Protected · 92.5% Accuracy
+    </div>
+
+    <h1 class="hero-title">
+      <span class="line-1">Smarter Monitoring.</span>
+      <span class="line-2">Safer Environments.</span>
+      <span class="line-3">Intelligent Future.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Transforming conventional CCTV systems into real-time AI intelligence platforms. Built for campuses, corporates, industries, and governments.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#toms" class="btn-primary">Explore TOMS — Flagship Product</a>
+      <a href="#products" class="btn-secondary">View All Solutions</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-target="92.5">0</div>
+        <div class="hero-stat-label">Detection Accuracy %</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-target="24">0</div>
+        <div class="hero-stat-label">Hours / 7 Days Monitoring</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-target="6">0</div>
+        <div class="hero-stat-label">Months Payback Period</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-target="4">0</div>
+        <div class="hero-stat-label">Weeks to Deploy</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-indicator-line"></div>
+    <div class="scroll-indicator-text">Scroll</div>
+  </div>
+</section>
+
+<!-- MARQUEE TICKER -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span> IIT Bombay Eureka 2024</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Pre-Incubated at IIT Roorkee</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Pilot Validated at Sharda University</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Aligned with Swachh Bharat Mission</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Patent-Protected AI Technology</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> 92.5% Detection Accuracy Proven</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> TrashBot Offender Monitoring System</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Real-Time AI Surveillance</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item"><span class="marquee-dot"></span> IIT Bombay Eureka 2024</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Pre-Incubated at IIT Roorkee</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Pilot Validated at Sharda University</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Aligned with Swachh Bharat Mission</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Patent-Protected AI Technology</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> 92.5% Detection Accuracy Proven</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> TrashBot Offender Monitoring System</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Real-Time AI Surveillance</span>
+  </div>
+</div>
+
+<!-- ===========================
+     ABOUT
+=========================== -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-orb-bg"></div>
+      <div class="about-card-float about-card-1">
+        <div class="about-card-icon">🎯</div>
+        <div class="about-card-label">Accuracy</div>
+        <div class="about-card-value">92.5%</div>
+        <div class="about-card-sub">Proven Detection Rate</div>
+      </div>
+      <div class="about-card-float about-card-2">
+        <div class="about-card-icon">⚡</div>
+        <div class="about-card-label">Response Time</div>
+        <div class="about-card-value">&lt;2s</div>
+        <div class="about-card-sub">Real-Time Alert Trigger</div>
+      </div>
+    </div>
+
+    <div class="about-text reveal">
+      <div class="section-label">About Us</div>
+      <h2 class="section-title">Where <span class="highlight">Intelligence</span> Meets Infrastructure</h2>
+      <p class="section-desc">
+        CleanSphere Innovations Pvt. Ltd. is a progressive technology company specializing in AI-powered smart monitoring systems. We convert conventional surveillance into intelligent ecosystems — improving decision-making, efficiency, and security for organizations of every scale.
+      </p>
+
+      <div class="mission-cards">
+        <div class="mission-card">
+          <div class="mission-card-icon">🏫</div>
+          <div class="mission-card-title">Campus Ready</div>
+          <div class="mission-card-text">Built for educational institutions with 24/7 behavioral monitoring</div>
+        </div>
+        <div class="mission-card">
+          <div class="mission-card-icon">🏭</div>
+          <div class="mission-card-title">Industrial Grade</div>
+          <div class="mission-card-text">Safety & hazard detection for factories and manufacturing</div>
+        </div>
+        <div class="mission-card">
+          <div class="mission-card-icon">🏛️</div>
+          <div class="mission-card-title">Government Scale</div>
+          <div class="mission-card-text">Public space monitoring aligned with national missions</div>
+        </div>
+        <div class="mission-card">
+          <div class="mission-card-icon">🏢</div>
+          <div class="mission-card-title">Corporate Smart</div>
+          <div class="mission-card-text">Access control and operational intelligence for enterprises</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     TOMS FLAGSHIP
+=========================== -->
+<section id="toms">
+  <div class="toms-header reveal">
+    <div class="toms-badge"><span class="toms-badge-star">★</span> Flagship Product</div>
+    <div class="section-label">TOMS</div>
+    <h2 class="section-title">TrashBot Offender<br><span class="highlight">Monitoring System</span></h2>
+    <p class="section-desc" style="margin: 0 auto;">
+      India's first AI-powered litter detection and offender monitoring system — working seamlessly with your existing CCTV infrastructure. Proudly aligned with the Swachh Bharat Mission.
+    </p>
+  </div>
+
+    <!-- FEATURE LIST -->
+    <div class="toms-features-list reveal">
+      <div class="toms-feature-item">
+        <div class="toms-feature-num">01</div>
+        <div class="toms-feature-body">
+          <div class="toms-feature-title">Real-Time Litter Detection</div>
+          <div class="toms-feature-desc">Computer vision models identify littering events in milliseconds across all connected camera feeds — day or night.</div>
+        </div>
+      </div>
+      <div class="toms-feature-item">
+        <div class="toms-feature-num">02</div>
+        <div class="toms-feature-body">
+          <div class="toms-feature-title">Existing CCTV Compatible</div>
+          <div class="toms-feature-desc">Zero hardware replacement needed. TOMS works as an intelligent overlay on your existing surveillance infrastructure.</div>
+          <div class="toms-feature-tag">Plug & Play</div>
+        </div>
+      </div>
+      <div class="toms-feature-item">
+        <div class="toms-feature-num">03</div>
+        <div class="toms-feature-body">
+          <div class="toms-feature-title">Instant Admin Alerts</div>
+          <div class="toms-feature-desc">Administrators receive immediate notifications with timestamped evidence — enabling accountability and deterrence.</div>
+          <div class="toms-feature-tag">Auto-Notify</div>
+        </div>
+      </div>
+      <div class="toms-feature-item">
+        <div class="toms-feature-num">04</div>
+        <div class="toms-feature-body">
+          <div class="toms-feature-title">Analytics & Reporting</div>
+          <div class="toms-feature-desc">Centralized dashboard tracks hotspots, frequencies, and trends. Data-driven insights to guide cleanliness initiatives.</div>
+          <div class="toms-feature-tag">Dashboard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Swachh Bharat Banner -->
+  <div class="swachh-banner reveal">
+    <div class="swachh-icon">🇮🇳</div>
+    <div class="swachh-text">
+      <div class="swachh-title">Aligned with Swachh Bharat Mission</div>
+      <div class="swachh-desc">
+        TOMS directly supports India's national cleanliness initiative by creating automated accountability for littering violations. By combining AI enforcement with behavioral awareness, CleanSphere helps build a cleaner, more responsible society — one campus, one city, one India at a time.
+      </div>
+    </div>
+    <div class="swachh-stat">
+      <div class="swachh-stat-num">92.5%</div>
+      <div class="swachh-stat-label">Pilot Accuracy at<br>Sharda University</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     ALL PRODUCTS
+=========================== -->
+<section id="products">
+  <div style="text-align:center; max-width: 700px; margin: 0 auto;" class="reveal">
+    <div class="section-label">Solutions</div>
+    <h2 class="section-title">Complete AI <span class="highlight">Surveillance Ecosystem</span></h2>
+    <p class="section-desc" style="margin: 0 auto;">Every module works independently or as part of a unified intelligent platform.</p>
+  </div>
+
+  <div class="products-grid">
+    <div class="product-card reveal">
+      <div class="product-card-number">01</div>
+      <div class="product-card-icon">🤖</div>
+      <div class="product-card-title">TrashBot — TOMS</div>
+      <div class="product-card-desc">AI-based litter detection and hygiene violation monitoring. India's first patented offender tracking system compatible with existing CCTV networks.</div>
+
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-number">02</div>
+      <div class="product-card-icon">👁️</div>
+      <div class="product-card-title">Identity & Access Intelligence</div>
+      <div class="product-card-desc">Smart facial recognition and automated access control. Eliminate manual checkpoints and unauthorized entries with AI-verified identity management.</div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-number">03</div>
+      <div class="product-card-icon">🔥</div>
+      <div class="product-card-title">Safety & Hazard Detection</div>
+      <div class="product-card-desc">Detect fire, smoke, unsafe behavior, and workplace hazards before they escalate. Automated alerts to safety teams with visual evidence.</div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-number">04</div>
+      <div class="product-card-icon">🚨</div>
+      <div class="product-card-title">Security & Threat Detection</div>
+      <div class="product-card-desc">Real-time identification of security threats, intrusions, and suspicious behavior. Proactive intelligence rather than post-incident review.</div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-number">05</div>
+      <div class="product-card-icon">🚗</div>
+      <div class="product-card-title">Mobility & Vehicle Intelligence</div>
+      <div class="product-card-desc">Vehicle tracking, ANPR (automatic number plate recognition), and smart traffic insights for campuses and gated communities.</div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-number">06</div>
+      <div class="product-card-icon">👥</div>
+      <div class="product-card-title">Crowd & Behavior Analytics</div>
+      <div class="product-card-desc">Monitor crowd density, unusual gatherings, and behavioral anomalies. Proactively manage public spaces with intelligent heatmaps and flow analysis.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     TECHNICAL CAPABILITIES
+=========================== -->
+<section id="tech">
+  <div style="text-align:center; max-width: 700px; margin: 0 auto;" class="reveal">
+    <div class="section-label">Technical Stack</div>
+    <h2 class="section-title">Built for <span class="highlight">Enterprise Scale</span></h2>
+  </div>
+  <div class="tech-grid">
+    <div class="tech-card reveal">
+      <div class="tech-card-icon">☁️</div>
+      <div>
+        <div class="tech-card-title">Edge & Cloud Integration</div>
+        <div class="tech-card-text">Process data at the edge for low latency, with cloud synchronization for analytics and storage.</div>
+      </div>
+    </div>
+    <div class="tech-card reveal">
+      <div class="tech-card-icon">📹</div>
+      <div>
+        <div class="tech-card-title">Multi-Camera Processing</div>
+        <div class="tech-card-text">Simultaneously analyze hundreds of camera feeds with unified real-time intelligence.</div>
+      </div>
+    </div>
+    <div class="tech-card reveal">
+      <div class="tech-card-icon">📐</div>
+      <div>
+        <div class="tech-card-title">Scalable Architecture</div>
+        <div class="tech-card-text">From a 10-camera campus to a 4000-camera enterprise deployment.</div>
+      </div>
+    </div>
+    <div class="tech-card reveal">
+      <div class="tech-card-icon">🎯</div>
+      <div>
+        <div class="tech-card-title">High Accuracy Detection</div>
+        <div class="tech-card-text">92.5% proven accuracy pilot-validated at Sharda University across diverse lighting and distances.</div>
+      </div>
+    </div>
+    <div class="tech-card reveal">
+      <div class="tech-card-icon">🔄</div>
+      <div>
+        <div class="tech-card-title">24/7 Continuous Monitoring</div>
+        <div class="tech-card-text">No fatigue, no blind spots. AI maintains vigilance round the clock without human intervention.</div>
+      </div>
+    </div>
+    <div class="tech-card reveal">
+      <div class="tech-card-icon">🔌</div>
+      <div>
+        <div class="tech-card-title">Existing CCTV Compatible</div>
+        <div class="tech-card-text">Zero hardware replacement. Transform your current infrastructure into an intelligent system.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     WHY CLEANSPHERE
+=========================== -->
+<section id="why">
+  <div style="text-align:center; max-width: 700px; margin: 0 auto;" class="reveal">
+    <div class="section-label">Competitive Edge</div>
+    <h2 class="section-title">Why <span class="highlight">CleanSphere?</span></h2>
+    <p class="section-desc" style="margin: 0 auto;">The only platform combining AI cleanliness monitoring, sustainability tracking, and operational intelligence under one roof.</p>
+  </div>
+
+  <div class="comparison-table reveal">
+    <div class="comparison-header">
+      <div class="comparison-header-cell">Feature</div>
+      <div class="comparison-header-cell">Traditional</div>
+      <div class="comparison-header-cell">Competitors</div>
+      <div class="comparison-header-cell ours">CleanSphere</div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-feature">AI-Powered Real-Time Intelligence</div>
+      <div class="check-no">✗</div>
+      <div class="check-partial">⚠</div>
+      <div class="check-yes">✓</div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-feature">Existing CCTV Integration</div>
+      <div class="check-partial">⚠</div>
+      <div class="check-partial">⚠</div>
+      <div class="check-yes">✓</div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-feature">AI Cleanliness Monitoring (TOMS)</div>
+      <div class="check-no">✗</div>
+      <div class="check-no">✗</div>
+      <div class="check-yes">✓</div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-feature">AI + Sustainability + Operations</div>
+      <div class="check-no">✗</div>
+      <div class="check-partial">⚠</div>
+      <div class="check-yes">✓</div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-feature">Patent-Protected Technology</div>
+      <div class="check-no">✗</div>
+      <div class="check-no">✗</div>
+      <div class="check-yes">✓</div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-feature">Swachh Bharat Mission Aligned</div>
+      <div class="check-no">✗</div>
+      <div class="check-no">✗</div>
+      <div class="check-yes">✓</div>
+    </div>
+  </div>
+
+  <div class="why-cards">
+    <div class="why-card reveal">
+      <div class="why-card-icon">⚡</div>
+      <div class="why-card-title">Real-Time Alerts</div>
+      <div class="why-card-text">Instant notifications for incidents the moment they occur — before situations escalate.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-card-icon">🧠</div>
+      <div class="why-card-title">Proactive Intelligence</div>
+      <div class="why-card-text">Detect and prevent issues before they become problems. Move from reactive to proactive operations.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-card-icon">💰</div>
+      <div class="why-card-title">Reduced Costs</div>
+      <div class="why-card-text">Significantly lower manpower requirements for surveillance. Automation replaces repetitive human monitoring.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     CREDENTIALS
+=========================== -->
+<section id="credentials">
+  <div style="max-width: 700px; margin: 0 auto;" class="reveal">
+    <div class="section-label">Recognition</div>
+    <h2 class="section-title">Credentials & <span class="highlight">Recognition</span></h2>
+    <p class="section-desc" style="margin: 0 auto;">Validated by India's premier institutions and aligned with national missions.</p>
+  </div>
+
+  <div class="credentials-grid">
+    <div class="credential-card reveal">
+      <div class="credential-icon">🏆</div>
+      <div class="credential-title">IIT Bombay</div>
+      <div class="credential-sub">Eureka 2024</div>
+      <div class="credential-desc">Selected among India's most prestigious entrepreneurship competitions for promising startup idea</div>
+    </div>
+    <div class="credential-card reveal">
+      <div class="credential-icon">🎓</div>
+      <div class="credential-title">IIT Roorkee</div>
+      <div class="credential-sub">Pre-Incubated</div>
+      <div class="credential-desc">Supported under early-stage startup development with expert mentorship and validation</div>
+    </div>
+    <div class="credential-card reveal">
+      <div class="credential-icon">🔬</div>
+      <div class="credential-title">Sharda University</div>
+      <div class="credential-sub">Pilot Validated</div>
+      <div class="credential-desc">Successful real-world testing and validation of TOMS within an active campus environment</div>
+    </div>
+    <div class="credential-card reveal">
+      <div class="credential-icon">🇮🇳</div>
+      <div class="credential-title">Swachh Bharat</div>
+      <div class="credential-sub">Mission Aligned</div>
+      <div class="credential-desc">Directly supports the national cleanliness mission — promoting responsible waste disposal</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     PRICING
+=========================== -->
+<section id="pricing">
+  <div style="max-width: 700px; margin: 0 auto;" class="reveal">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Flexible Plans for <span class="highlight">Every Scale</span></h2>
+    <p class="section-desc" style="margin: 0 auto;">Whether you're a campus, a corporate, or a government — there's a plan built for you. Detailed proposals shared post requirement assessment.</p>
+  </div>
+
+  <div class="pricing-grid">
+
+    <div class="pricing-card featured">
+      <div class="pricing-badge">POPULAR</div>
+
+      <div class="pricing-tier">SUBSCRIPTION</div>
+      <div class="pricing-title">Monthly SaaS Model</div>
+
+      <div class="pricing-divider"></div>
+
+      <ul class="pricing-features">
+        <li>AI monitoring dashboard</li>
+        <li>Cloud analytics</li>
+        <li>Real-time alerts</li>
+        <li>Maintenance & updates included</li>
+        <li>Scalable for institutions</li>
+      </ul>
+
+      <button type="button" class="pricing-cta pricing-cta-filled openQuoteBtn">Get Quote</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-tier">ENTERPRISE LICENSING</div>
+      <div class="pricing-title">Enterprise Solution</div>
+
+      <div class="pricing-divider"></div>
+
+      <ul class="pricing-features">
+        <li>Custom enterprise deployment</li>
+        <li>One-time licensing model</li>
+        <li>On-premise infrastructure</li>
+        <li>Dedicated integration support</li>
+        <li>Built according to requirements</li>
+      </ul>
+
+      <button type="button" class="pricing-cta pricing-cta-outline openQuoteBtn">Discuss Requirements</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===========================
+     TIMELINE & ROI
+=========================== -->
+<section id="timeline">
+  <div style="max-width: 700px;" class="reveal">
+    <div class="section-label">Process</div>
+    <h2 class="section-title">Deployed in <span class="highlight">4–6 Weeks</span></h2>
+    <p class="section-desc">A structured 4-phase implementation process ensures smooth deployment with minimal disruption.</p>
+  </div>
+
+  <div class="timeline-grid">
+    <div class="timeline-steps">
+      <div class="timeline-step reveal">
+        <div class="timeline-step-dot">1</div>
+        <div class="timeline-step-content">
+          <div class="timeline-step-title">Requirement Analysis & Planning</div>
+          <div class="timeline-step-duration">1 Week</div>
+          <div class="timeline-step-desc">Site assessment, camera mapping, infrastructure review, and system architecture planning.</div>
+        </div>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="timeline-step-dot">2</div>
+        <div class="timeline-step-content">
+          <div class="timeline-step-title">CCTV Integration & System Setup</div>
+          <div class="timeline-step-duration">1–2 Weeks</div>
+          <div class="timeline-step-desc">Connecting existing cameras, configuring AI models, and setting up the monitoring infrastructure.</div>
+        </div>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="timeline-step-dot">3</div>
+        <div class="timeline-step-content">
+          <div class="timeline-step-title">Testing, Calibration & Optimization</div>
+          <div class="timeline-step-duration">1–2 Weeks</div>
+          <div class="timeline-step-desc">Fine-tuning AI models for your specific environment, lighting conditions, and accuracy targets.</div>
+        </div>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="timeline-step-dot">4</div>
+        <div class="timeline-step-content">
+          <div class="timeline-step-title">Deployment, Training & Handover</div>
+          <div class="timeline-step-duration">1 Week</div>
+          <div class="timeline-step-desc">Full system launch, admin training, documentation handover, and 3-month warranty begins.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="payment-cards reveal">
+      <div class="payment-card">
+        <div class="payment-pct">40%</div>
+        <div class="payment-info">
+          <div class="payment-title">Advance Payment</div>
+          <div class="payment-desc">On agreement signing and project initiation</div>
+        </div>
+      </div>
+      <div class="payment-card">
+        <div class="payment-pct">40%</div>
+        <div class="payment-info">
+          <div class="payment-title">Milestone Payment</div>
+          <div class="payment-desc">On system integration and initial deployment</div>
+        </div>
+      </div>
+      <div class="payment-card">
+        <div class="payment-pct">20%</div>
+        <div class="payment-info">
+          <div class="payment-title">Final Payment</div>
+          <div class="payment-desc">On project completion and formal handover</div>
+        </div>
+      </div>
+      <div class="roi-chip">
+        <div class="roi-chip-label">Estimated Payback Period</div>
+        <div class="roi-chip-value">6 – 12 Months</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     CONTACT CTA
+=========================== -->
+<section id="contact">
+  <div class="contact-orb"></div>
+  <div class="contact-content reveal">
+    <div class="section-label" style="justify-content:center;">Let's Connect</div>
+    <h2 class="contact-title">Let's Build <span class="highlight">Smarter</span> Spaces Together</h2>
+    <p class="contact-desc">
+      One conversation is all it takes to start transforming your surveillance into intelligence. Reach out for a free demo and site assessment.
+    </p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a href="tel:+919794795946" class="btn-primary">📞 Call Us Now</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScK0QqEn3wjmpJw-cLn2ghE0RhTojpGw33ihC23EOduZphY8w/alreadyresponded" target="_blank" class="btn-primary">
+        Open Requirement Form
+      </a>
+    </div>
+
+    <div class="contact-details">
+      <a href="mailto:info@cleansphereinnovation.in" class="contact-detail" style="color:inherit; text-decoration:none;">
+        <div class="contact-detail-icon">✉</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-value">info@cleansphereinnovation.in</div>
+        </div>
+      </a>
+      <a href="tel:+917988984612" class="contact-detail" style="color:inherit; text-decoration:none;">
+        <div class="contact-detail-icon">📞</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Phone</div>
+          <div class="contact-detail-value">+91 79889 84612</div>
+        </div>
+      </a>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Location</div>
+          <div class="contact-detail-value">Greater Noida, UP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     FOOTER
+=========================== -->
+<footer>
+  <div class="footer-copy">
+    © 2025 CleanSphere Innovations Pvt. Ltd. · Smarter Monitoring. Safer Environments.
+  </div>
+  <div class="footer-links">
+    <a href="#toms">TOMS</a>
+    <a href="#products">Products</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#credentials">Credentials</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<!-- ===========================
+     JAVASCRIPT
+=========================== -->
+<script>
+/* --- Custom Cursor --- */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px';
+  dot.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .product-card, .why-card, .credential-card, .toms-feature-item').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+});
+
+/* --- Scroll Progress --- */
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  progressBar.style.width = pct + '%';
+});
+
+/* --- Navbar Scroll --- */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* --- Reveal on Scroll --- */
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, (entry.target.dataset.delay || 0));
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+revealEls.forEach((el, i) => {
+  el.style.transitionDelay = (i % 3) * 0.1 + 's';
+  observer.observe(el);
+});
+
+/* --- Particle Canvas --- */
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const particles = [];
+const PARTICLE_COUNT = 80;
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.radius = Math.random() * 1.5 + 0.5;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.color = Math.random() > 0.5
+      ? `rgba(34,198,105,${this.opacity})`
+      : `rgba(79,195,255,${this.opacity})`;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  particles.push(new Particle());
+}
+
+function drawLines() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        const alpha = (1 - dist / 120) * 0.08;
+        ctx.strokeStyle = `rgba(34,198,105,${alpha})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawLines();
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+/* --- Counter Animation --- */
+function animateCounter(el, target, suffix) {
+  let start = 0;
+  const duration = 2000;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = target * eased;
+    el.textContent = Number.isInteger(target) ? Math.floor(current) : current.toFixed(1);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + (suffix || '');
+  };
+  requestAnimationFrame(step);
+}
+
+const statNums = document.querySelectorAll('.hero-stat-num[data-target]');
+const statsSection = document.querySelector('#hero');
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      statNums.forEach(el => {
+        const target = parseFloat(el.dataset.target);
+        const suffix = target === 92.5 ? '%' : target === 24 ? '/7' : '';
+        animateCounter(el, target, suffix);
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+statsObserver.observe(statsSection);
+
+/* --- Smooth Scroll for nav links --- */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+
+</script>
+<!-- QUOTE MODAL -->
+<div class="quote-modal" id="quoteModal">
+  <div class="quote-overlay"></div>
+
+  <div class="quote-box">
+    <button class="quote-close" id="closeQuote">×</button>
+
+    <div class="quote-header">
+      <div class="quote-icon">📄</div>
+
+      <div>
+        <h2>Get a Quote</h2>
+        <p>Tell us about your requirements and our team will connect with you.</p>
+      </div>
+    </div>
+
+    <form action="https://formsubmit.co/info@cleansphereinnovation.in" method="POST">
+
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New CleanSphere Quote Request">
+      <div class="quote-grid">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+      </div>
+
+      <div class="quote-grid">
+        <input type="text" name="phone" placeholder="Phone Number" required>
+
+        <select name="industry" required>
+          <option value="">Select Industry</option>
+          <option>Campus</option>
+          <option>Corporate</option>
+          <option>Industrial</option>
+          <option>Government</option>
+          <option>Hospital</option>
+        </select>
+      </div>
+
+      <textarea name="requirements" placeholder="Project Details" required></textarea>
+
+      <button type="submit" class="quote-submit">Submit Request</button>
+    </form>
+
+    <div class="google-form-link">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScK0QqEn3wjmpJw-cLn2ghE0RhTojpGw33ihC23EOduZphY8w/alreadyresponded" target="_blank">
+        Open Detailed Requirement Form
+      </a>
+    </div>
+  </div>
+</div>
+<script>
+
+const quoteModal = document.getElementById('quoteModal');
+
+document.querySelectorAll('.openQuoteBtn').forEach(btn => {
+
+  btn.addEventListener('click', () => {
+    quoteModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+});
+
+document.getElementById('closeQuote').addEventListener('click', () => {
+  quoteModal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+});
+
+document.querySelector('.quote-overlay').addEventListener('click', () => {
+  quoteModal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+});
+
+</script>
+</body>
+</html>
