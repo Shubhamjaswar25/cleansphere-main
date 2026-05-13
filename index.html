@@ -311,135 +311,151 @@ nav.scrolled {
   position: relative;
 }
 
-.hero-globe-container {
-  position: relative;
-  width: 100%;
-  min-height: 520px;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+/* =========================
+   GLOBE SECTION
+========================= */
+
+.hero-globe-container{
+    position: relative;
+    width: 100%;
+    height: 760px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.hero-ring {
-  position: absolute;
-  width: 620px;
-  height: 620px;
-  border-radius: 50%;
-  border: 2px solid rgba(34,198,105,0.15);
-  transform: rotateX(75deg);
-  box-shadow:
-    0 0 80px rgba(34,198,105,0.15),
-    inset 0 0 60px rgba(29,111,164,0.12);
+.hero-globe{
+    position: relative;
+    z-index:1;
+    width:520px;
+    height:520px;
+    animation: globeFloat 6s ease-in-out infinite;
 }
 
-.hero-globe {
-  width: min(75vw, 460px);
-  height: min(75vw, 460px);
-  border-radius: 50%;
-  position: relative;
-  z-index: 1;
-  animation: floatGlobe 6s ease-in-out infinite;
+.hero-globe img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 50px rgba(34,198,105,0.35))
+        drop-shadow(0 0 100px rgba(0,255,170,0.18));
 }
 
-.hero-globe img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 0 60px rgba(34,198,105,0.35))
-    drop-shadow(0 0 120px rgba(29,111,164,0.18));
+@keyframes globeFloat{
+
+    0%,100%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-18px);
+    }
 }
 
-@keyframes floatGlobe {
+/* CARDS */
 
-  0%,100% {
-    transform: translateY(0px);
-  }
+.floating-card{
+    position:absolute;
+    z-index:5;
+    width:260px;
+    padding:28px;
+    border-radius:28px;
 
-  50% {
-    transform: translateY(-18px);
-  }
+    background:rgba(5,18,14,0.72);
+
+    border:1px solid rgba(34,198,105,0.15);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+      0 0 40px rgba(0,0,0,0.25),
+      inset 0 0 40px rgba(34,198,105,0.03);
 }
 
-.floating-card {
-  position: absolute;
-  z-index: 5;
-  width: 240px;
-  padding: 22px;
-  border-radius: 22px;
-  background: rgba(6,18,14,0.72);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 0 40px rgba(0,0,0,0.25);
+.card-icon{
+    font-size:34px;
+    margin-bottom:18px;
 }
 
-.floating-card h4 {
-  font-size: 20px;
-  margin-bottom: 10px;
+.floating-card h4{
+    font-size:34px;
+    margin-bottom:14px;
+    color:white;
 }
 
-.floating-card p {
-  color: #8FA69A;
-  line-height: 1.5;
-  margin-bottom: 10px;
+.floating-card p{
+    font-size:20px;
+    line-height:1.6;
+    color:#B5C5BC;
+    margin-bottom:18px;
 }
 
-.floating-card span {
-  color: #22C669;
-  font-size: 14px;
+.floating-card span{
+    color:#22C669;
+    font-size:18px;
+    font-weight:600;
 }
 
-.card-1 {
-  top: 80px;
-  left: 80px;
+/* POSITIONS */
+
+.card-top-left{
+    top:80px;
+    left:0;
 }
 
-.card-2 {
-  top: 260px;
-  right: 80px;
+.card-top-right{
+    top:80px;
+    right:0;
 }
 
-.card-3 {
-  bottom: 12%;
-  right: 0%;
+.card-bottom-left{
+    bottom:80px;
+    left:0;
 }
 
-.card-4 {
-  bottom: 12%;
-  left: 0%;
+.card-bottom-right{
+    bottom:80px;
+    right:0;
 }
 
-@media(max-width:1100px) {
+/* MOBILE */
 
-  .hero-container {
-    grid-template-columns: 1fr;
-  }
+@media(max-width:768px){
 
-  .hero-right {
-    margin-top: 80px;
-  }
+    .hero-globe-container{
+        height:auto;
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+        padding:40px 0;
+    }
 
-  .hero-globe-container {
-    height: 540px;
-  }
+    .hero-globe{
+        width:280px;
+        height:280px;
+        order:2;
+    }
 
-  .hero-ring {
-    width: 380px;
-    height: 380px;
-  }
+    .floating-card{
+        position:relative;
+        width:100%;
+        max-width:320px;
+        left:unset;
+        right:unset;
+        top:unset;
+        bottom:unset;
+        padding:22px;
+    }
 
-  .hero-globe {
-    width: 280px;
-    height: 280px;
-  }
+    .floating-card h4{
+        font-size:28px;
+    }
 
-  .floating-card {
-    width: 180px;
-    padding: 16px;
-  }
+    .floating-card p{
+        font-size:18px;
+    }
+
 }
 
 /* ===========================
@@ -1873,34 +1889,41 @@ footer {
 
       <div class="hero-globe-container">
 
-        <div class="hero-ring"></div>
+        <!-- TOP LEFT -->
+        <div class="floating-card card-top-left">
+            <div class="card-icon">🧠</div>
+            <h4>AI Detection</h4>
+            <p>Real-time intelligence active</p>
+            <span>● LIVE</span>
+        </div>
 
+        <!-- TOP RIGHT -->
+        <div class="floating-card card-top-right">
+            <div class="card-icon">📹</div>
+            <h4>24/7 Monitoring</h4>
+            <p>Continuous environmental surveillance</p>
+            <span>● ACTIVE</span>
+        </div>
+
+        <!-- CENTER GLOBE -->
         <div class="hero-globe" id="heroGlobe">
-          <img src="globe.png" alt="CleanSphere">
+            <img src="globe.png" alt="AI Globe">
         </div>
 
-        <div class="floating-card card-1">
-          <h4>AI Detection</h4>
-          <p>Real-time intelligence active</p>
-          <span>● LIVE</span>
+        <!-- BOTTOM LEFT -->
+        <div class="floating-card card-bottom-left">
+            <div class="card-icon">📊</div>
+            <h4>Smart Analytics</h4>
+            <p>Actionable AI insights</p>
+            <span>● RUNNING</span>
         </div>
 
-        <div class="floating-card card-2">
-          <h4>24/7 Monitoring</h4>
-          <p>Continuous environmental surveillance</p>
-          <span>● ACTIVE</span>
-        </div>
-
-        <div class="floating-card card-3">
-          <h4>Cloud Connected</h4>
-          <p>Secure scalable infrastructure</p>
-          <span>● ONLINE</span>
-        </div>
-
-        <div class="floating-card card-4">
-          <h4>Smart Analytics</h4>
-          <p>Actionable AI insights</p>
-          <span>● RUNNING</span>
+        <!-- BOTTOM RIGHT -->
+        <div class="floating-card card-bottom-right">
+            <div class="card-icon">☁️</div>
+            <h4>Cloud Connected</h4>
+            <p>Secure scalable infrastructure</p>
+            <span>● ONLINE</span>
         </div>
 
       </div>
