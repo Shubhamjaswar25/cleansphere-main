@@ -339,7 +339,7 @@ nav.scrolled {
   height: min(75vw, 460px);
   border-radius: 50%;
   position: relative;
-  z-index: 2;
+  z-index: 1;
   animation: floatGlobe 6s ease-in-out infinite;
 }
 
@@ -365,10 +365,11 @@ nav.scrolled {
 
 .floating-card {
   position: absolute;
+  z-index: 5;
   width: 240px;
   padding: 22px;
   border-radius: 22px;
-  background: rgba(6,18,14,0.88);
+  background: rgba(6,18,14,0.72);
   border: 1px solid rgba(255,255,255,0.08);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -392,13 +393,13 @@ nav.scrolled {
 }
 
 .card-1 {
-  top: 10%;
-  left: 0%;
+  top: 80px;
+  left: 80px;
 }
 
 .card-2 {
-  top: 12%;
-  right: 0%;
+  top: 260px;
+  right: 80px;
 }
 
 .card-3 {
