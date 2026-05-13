@@ -38,6 +38,15 @@
 
 html { scroll-behavior: smooth; }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+*{
+  max-width:100%;
+}
+
 body {
   font-family: var(--font-body);
   background: var(--bg-void);
@@ -108,6 +117,7 @@ nav {
 nav.scrolled {
   background: rgba(4,12,8,0.92);
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border);
   padding: 14px 60px;
 }
@@ -304,10 +314,12 @@ nav.scrolled {
 .hero-globe-container {
   position: relative;
   width: 100%;
-  height: 720px;
+  min-height: 520px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .hero-ring {
@@ -323,8 +335,8 @@ nav.scrolled {
 }
 
 .hero-globe {
-  width: 460px;
-  height: 460px;
+  width: min(75vw, 460px);
+  height: min(75vw, 460px);
   border-radius: 50%;
   position: relative;
   z-index: 2;
@@ -359,6 +371,7 @@ nav.scrolled {
   background: rgba(6,18,14,0.88);
   border: 1px solid rgba(255,255,255,0.08);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 0 40px rgba(0,0,0,0.25);
 }
 
@@ -550,7 +563,8 @@ section {
 }
 .about-visual {
   position: relative;
-  height: 500px;
+  min-height: 300px;
+  height: auto;
 }
 .about-orb-bg {
   position: absolute;
@@ -562,6 +576,7 @@ section {
   position: absolute;
   background: var(--bg-card);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px 24px;
@@ -919,6 +934,7 @@ section {
 .product-card {
   background: var(--bg-card);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 36px;
@@ -1003,6 +1019,8 @@ section {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .comparison-header {
   display: grid;
@@ -1010,6 +1028,7 @@ section {
   background: var(--bg-surface);
   padding: 20px 32px;
   gap: 16px;
+  min-width: 700px;
 }
 .comparison-header-cell {
   font-family: var(--font-display);
@@ -1037,6 +1056,7 @@ section {
   border-top: 1px solid rgba(255,255,255,0.04);
   transition: background 0.2s;
   align-items: center;
+  min-width: 700px;
 }
 .comparison-row:hover {
   background: rgba(255,255,255,0.02);
@@ -1556,6 +1576,7 @@ footer {
   inset: 0;
   background: rgba(0,0,0,0.75);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .quote-box {
@@ -1690,6 +1711,65 @@ footer {
   .hero-stats { gap: 32px; }
   .comparison-header, .comparison-row { grid-template-columns: 1.5fr 1fr 1fr 1fr; padding: 16px; }
   footer { flex-direction: column; gap: 20px; text-align: center; }
+
+  .floating-card {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    margin: 12px auto;
+    left: unset !important;
+    right: unset !important;
+    top: unset !important;
+    bottom: unset !important;
+  }
+
+  .hero-globe-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .about-card-float{
+    position: relative;
+    width: 100%;
+    margin-bottom: 16px;
+    top: unset !important;
+    left: unset !important;
+    right: unset !important;
+    bottom: unset !important;
+  }
+
+  nav{
+    padding: 14px 16px;
+  }
+
+  .nav-logo-text{
+    font-size: 13px;
+  }
+
+  .nav-logo-icon{
+    width: 42px;
+    height: 42px;
+  }
+
+  .nav-cta{
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .hero-title{
+    font-size: 42px;
+    line-height: 1.1;
+  }
+
+  .hero-subtitle{
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .section-title{
+    font-size: 38px;
+  }
 }
 @media (max-width: 600px) {
   .products-grid, .why-cards, .credentials-grid, .pricing-grid, .tech-grid { grid-template-columns: 1fr; }
