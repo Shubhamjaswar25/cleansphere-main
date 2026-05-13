@@ -427,47 +427,62 @@ nav.scrolled {
     right:0;
 }
 
-/* MOBILE */
+/* MOBILE HERO FIX */
 
 @media(max-width:768px){
 
-    .hero-globe-container{
-        height:auto;
+    .hero-content{
         display:flex;
         flex-direction:column;
-        gap:20px;
-        padding:40px 0;
+    }
+
+    .hero-text{
+        order:1;
+    }
+
+    .hero-globe-container{
+        order:2;
+
+        width:100%;
+        height:auto;
+
+        margin-top:30px;
+        margin-bottom:30px;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
     }
 
     .hero-globe{
-        width:340px;
-        height:340px;
-        order:2;
-        margin-top:-20px;
+        width:320px;
+        height:320px;
+
+        margin:0 auto;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .hero-globe img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
     }
 
     .floating-card{
-        position:relative;
-        width:100%;
-        max-width:320px;
-        left:unset;
-        right:unset;
-        top:unset;
-        bottom:unset;
-        padding:22px;
+        display:none;
     }
 
-    .floating-card h4{
-        font-size:28px;
-    }
-
-    .floating-card p{
-        font-size:18px;
+    .hero-buttons{
+        order:3;
+        margin-top:20px;
     }
 
 }
 
-/* ===========================
+/* ===========================」
    SECTION SHARED STYLES
 =========================== */
 section {
