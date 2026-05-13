@@ -2102,6 +2102,47 @@ footer {
     }
 
 }
+
+/* TIMELINE NUMBER SPACING FIX */
+
+.feature-item,
+.solution-item,
+.toms-feature{
+    position:relative;
+    padding-left:110px;
+}
+
+.feature-number,
+.solution-number,
+.toms-number{
+    position:absolute;
+    left:20px;
+    top:18px;
+
+    font-size:72px;
+    line-height:1;
+    opacity:0.14;
+}
+
+/* MOBILE FIX */
+
+@media(max-width:768px){
+
+    .feature-item,
+    .solution-item,
+    .toms-feature{
+        padding-left:75px;
+    }
+
+    .feature-number,
+    .solution-number,
+    .toms-number{
+        left:10px;
+        top:14px;
+        font-size:52px;
+    }
+
+}
 </style>
 </head>
 <body>
