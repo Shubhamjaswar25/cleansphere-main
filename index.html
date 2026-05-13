@@ -1855,39 +1855,6 @@ footer {
     gap: 18px;
   }
 
-  .about-visual{
-    position:relative;
-    min-height:520px;
-  }
-
-  .about-card-1{
-    position:absolute;
-    top:40px;
-    left:50%;
-    transform:translateX(-50%);
-    width:280px;
-    text-align:center;
-  }
-
-  .about-card-2{
-    position:absolute;
-    top:240px;
-    left:50%;
-    transform:translateX(-50%);
-    width:280px;
-    text-align:center;
-  }
-
-  .about-card-icon{
-    margin:0 auto 12px;
-  }
-
-  .about-card-label,
-  .about-card-value,
-  .about-card-sub{
-    text-align:center;
-  }
-
   nav{
     padding: 14px 16px;
   }
@@ -2088,6 +2055,50 @@ footer {
     .hero-visual,
     .floating-globe{
         display:none !important;
+    }
+
+}
+
+/* PERFECT MOBILE CENTER FIX */
+
+@media(max-width:768px){
+
+    .about-visual{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:30px;
+        width:100%;
+        padding:20px 0;
+    }
+
+    .about-card-float,
+    .about-card-1,
+    .about-card-2{
+        position:relative !important;
+        left:auto !important;
+        right:auto !important;
+        top:auto !important;
+        bottom:auto !important;
+        transform:none !important;
+
+        width:90%;
+        max-width:320px;
+        margin:0 auto !important;
+
+        text-align:center;
+    }
+
+    .about-card-icon{
+        margin:0 auto 14px;
+    }
+
+    .about-card-label,
+    .about-card-value,
+    .about-card-sub{
+        text-align:center;
+        width:100%;
     }
 
 }
