@@ -936,27 +936,42 @@ section {
 .alert-time { margin-left: auto; font-size: 10px; color: var(--green-vivid); }
 
 .toms-features-list { margin-top: 0; }
-.toms-feature-item {
-  display: flex;
-  gap: 20px;
-  padding: 28px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  transition: all 0.3s;
+.toms-feature-item{
+    display:flex;
+    align-items:flex-start;
+
+    gap:50px;
+
+    padding:42px 0;
+
+    border-bottom:1px solid rgba(255,255,255,0.05);
+
+    transition:all 0.3s;
 }
 .toms-feature-item:last-child { border-bottom: none; }
 .toms-feature-item:hover { transform: translateX(8px); }
-.toms-feature-num {
-  font-family: var(--font-display);
-  font-size: 40px;
-  font-weight: 800;
-  color: rgba(34,198,105,0.15);
-  line-height: 1;
-  flex-shrink: 0;
-  width: 50px;
-  transition: color 0.3s;
+.toms-feature-num{
+    font-family:var(--font-display);
+
+    font-size:86px;
+
+    font-weight:800;
+
+    line-height:0.9;
+
+    color:rgba(34,198,105,0.15);
+
+    flex-shrink:0;
+
+    width:120px;
+
+    transition:color 0.3s;
 }
 .toms-feature-item:hover .toms-feature-num { color: rgba(34,198,105,0.4); }
-.toms-feature-body { }
+.toms-feature-body{
+    flex:1;
+    padding-top:8px;
+}
 .toms-feature-title {
   font-family: var(--font-display);
   font-size: 18px;
@@ -969,6 +984,32 @@ section {
   color: var(--text-muted);
   line-height: 1.7;
 }
+
+@media(max-width:768px){
+
+    .toms-feature-item{
+        gap:24px;
+        padding:32px 0;
+    }
+
+    .toms-feature-num{
+        font-size:58px;
+        width:72px;
+    }
+
+    .toms-feature-title{
+        font-size:26px;
+        line-height:1.2;
+        margin-bottom:10px;
+    }
+
+    .toms-feature-desc{
+        font-size:16px;
+        line-height:1.7;
+    }
+
+}
+
 .toms-feature-tag {
   display: inline-flex;
   align-items: center;
@@ -2103,62 +2144,6 @@ footer {
 
 }
 
-/* =================================
-   TOMS FEATURE NUMBER SPACING FIX
-================================= */
-
-.toms-feature-item{
-    position:relative;
-    display:flex;
-    align-items:flex-start;
-    gap:40px;
-    padding:40px 20px;
-}
-
-.toms-feature-num{
-    flex-shrink:0;
-
-    font-size:72px;
-    line-height:1;
-
-    min-width:90px;
-
-    color:rgba(34,198,105,0.18);
-
-    margin-top:-4px;
-}
-
-.toms-feature-body{
-    flex:1;
-}
-
-/* MOBILE FIX */
-
-@media(max-width:768px){
-
-    .toms-feature-item{
-        gap:22px;
-        padding:32px 10px;
-        align-items:flex-start;
-    }
-
-    .toms-feature-num{
-        font-size:52px;
-        min-width:58px;
-    }
-
-    .toms-feature-title{
-        font-size:28px !important;
-        line-height:1.2;
-        margin-bottom:10px;
-    }
-
-    .toms-feature-desc{
-        font-size:16px !important;
-        line-height:1.7;
-    }
-
-}
 </style>
 </head>
 <body>
