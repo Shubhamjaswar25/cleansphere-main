@@ -1216,14 +1216,31 @@ section {
   background: var(--bg-void);
   text-align: center;
 }
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  max-width: 1000px;
-  margin: 60px auto 0;
-  align-items: start;
+.pricing-grid{
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+
+    flex-wrap:wrap;
+
+    margin:60px auto 0 auto;
 }
+
+.pricing-section{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    max-width:1400px;
+    margin:0 auto;
+}
+
 .pricing-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -1888,7 +1905,7 @@ footer {
       </h1>
 
       <p class="hero-subtitle">
-        Transforming conventional CCTV systems into real-time AI intelligence platforms for campuses, industries, governments, and smart cities.
+        Transforming conventional CCTV systems into real-time AI intelligence platforms for campuses, industries, governments and smart cities.
       </p>
 
       <div class="hero-buttons">
@@ -1988,7 +2005,7 @@ footer {
       <div class="section-label">About Us</div>
       <h2 class="section-title">Where <span class="highlight">Intelligence</span> Meets Infrastructure</h2>
       <p class="section-desc">
-        CleanSphere Innovations Pvt. Ltd. is a progressive technology company specializing in AI-powered smart monitoring systems. We convert conventional surveillance into intelligent ecosystems — improving decision-making, efficiency, and security for organizations of every scale.
+        CleanSphere Innovations Pvt. Ltd. is a progressive technology company specializing in AI-powered smart monitoring systems. We convert conventional surveillance into intelligent ecosystems — improving decision-making, efficiency and security for organizations of every scale.
       </p>
 
       <div class="mission-cards">
@@ -2110,7 +2127,7 @@ footer {
       <div class="product-card-number">03</div>
       <div class="product-card-icon">🔥</div>
       <div class="product-card-title">Safety & Hazard Detection</div>
-      <div class="product-card-desc">Detect fire, smoke, unsafe behavior, and workplace hazards before they escalate. Automated alerts to safety teams with visual evidence.</div>
+      <div class="product-card-desc">Detect fire, smoke, unsafe behavior and workplace hazards before they escalate. Automated alerts to safety teams with visual evidence.</div>
     </div>
     <div class="product-card reveal">
       <div class="product-card-number">04</div>
@@ -2122,13 +2139,13 @@ footer {
       <div class="product-card-number">05</div>
       <div class="product-card-icon">🚗</div>
       <div class="product-card-title">Mobility & Vehicle Intelligence</div>
-      <div class="product-card-desc">Vehicle tracking, ANPR (automatic number plate recognition), and smart traffic insights for campuses and gated communities.</div>
+      <div class="product-card-desc">Vehicle tracking, ANPR (automatic number plate recognition) and smart traffic insights for campuses and gated communities.</div>
     </div>
     <div class="product-card reveal">
       <div class="product-card-number">06</div>
       <div class="product-card-icon">👥</div>
       <div class="product-card-title">Crowd & Behavior Analytics</div>
-      <div class="product-card-desc">Monitor crowd density, unusual gatherings, and behavioral anomalies. Proactively manage public spaces with intelligent heatmaps and flow analysis.</div>
+      <div class="product-card-desc">Monitor crowd density, unusual gatherings and behavioral anomalies. Proactively manage public spaces with intelligent heatmaps and flow analysis.</div>
     </div>
   </div>
 </section>
@@ -2194,7 +2211,7 @@ footer {
   <div style="text-align:center; max-width: 700px; margin: 0 auto;" class="reveal">
     <div class="section-label">Competitive Edge</div>
     <h2 class="section-title">Why <span class="highlight">CleanSphere?</span></h2>
-    <p class="section-desc" style="margin: 0 auto;">The only platform combining AI cleanliness monitoring, sustainability tracking, and operational intelligence under one roof.</p>
+    <p class="section-desc" style="margin: 0 auto;">The only platform combining AI cleanliness monitoring, sustainability tracking and operational intelligence under one roof.</p>
   </div>
 
   <div class="comparison-table reveal">
@@ -2367,7 +2384,7 @@ footer {
         <div class="timeline-step-content">
           <div class="timeline-step-title">Requirement Analysis & Planning</div>
           <div class="timeline-step-duration">1 Week</div>
-          <div class="timeline-step-desc">Site assessment, camera mapping, infrastructure review, and system architecture planning.</div>
+          <div class="timeline-step-desc">Site assessment, camera mapping, infrastructure review and system architecture planning.</div>
         </div>
       </div>
       <div class="timeline-step reveal">
@@ -2375,7 +2392,7 @@ footer {
         <div class="timeline-step-content">
           <div class="timeline-step-title">CCTV Integration & System Setup</div>
           <div class="timeline-step-duration">1–2 Weeks</div>
-          <div class="timeline-step-desc">Connecting existing cameras, configuring AI models, and setting up the monitoring infrastructure.</div>
+          <div class="timeline-step-desc">Connecting existing cameras, configuring AI models and setting up the monitoring infrastructure.</div>
         </div>
       </div>
       <div class="timeline-step reveal">
@@ -2383,7 +2400,7 @@ footer {
         <div class="timeline-step-content">
           <div class="timeline-step-title">Testing, Calibration & Optimization</div>
           <div class="timeline-step-duration">1–2 Weeks</div>
-          <div class="timeline-step-desc">Fine-tuning AI models for your specific environment, lighting conditions, and accuracy targets.</div>
+          <div class="timeline-step-desc">Fine-tuning AI models for your specific environment, lighting conditions and accuracy targets.</div>
         </div>
       </div>
       <div class="timeline-step reveal">
@@ -2391,7 +2408,7 @@ footer {
         <div class="timeline-step-content">
           <div class="timeline-step-title">Deployment, Training & Handover</div>
           <div class="timeline-step-duration">1 Week</div>
-          <div class="timeline-step-desc">Full system launch, admin training, documentation handover, and 3-month warranty begins.</div>
+          <div class="timeline-step-desc">Full system launch, admin training, documentation handover and 3-month warranty begins.</div>
         </div>
       </div>
     </div>
@@ -2475,7 +2492,7 @@ footer {
 =========================== -->
 <footer>
   <div class="footer-copy">
-    © 2025 CleanSphere Innovations Pvt. Ltd. · Smarter Monitoring. Safer Environments.
+    © 2025 CleanSphere Innovations Pvt. Ltd. | Smarter Monitoring. Safer Environments.
   </div>
   <div class="footer-links">
     <a href="#toms">TOMS</a>
