@@ -1056,7 +1056,11 @@ section {
   align-items: center;
   gap: 32px;
 }
-.swachh-icon { font-size: 48px; flex-shrink: 0; }
+.swachh-icon img{
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
 .swachh-text { }
 .swachh-title {
   font-family: var(--font-display);
@@ -2487,7 +2491,9 @@ footer {
 
   <!-- Swachh Bharat Banner -->
   <div class="swachh-banner reveal">
-    <div class="swachh-icon">🇮🇳</div>
+    <div class="swachh-icon">
+    <img src="india-flag.png" alt="India Flag">
+</div>
     <div class="swachh-text">
       <div class="swachh-title">Aligned with Swachh Bharat Mission</div>
       <div class="swachh-desc">
