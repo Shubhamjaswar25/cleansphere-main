@@ -1102,24 +1102,111 @@ section {
   margin: 60px auto 0;
 }
 .product-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 36px;
   position: relative;
   overflow: hidden;
-  transition: all 0.4s ease;
   cursor: pointer;
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  padding-top: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 420px;
+  transition: all 0.4s ease;
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(34,198,105,0.2);
+}
+.toms-bg{
+    background-image:
+    linear-gradient(
+        to right,
+        rgba(0,0,0,0.88) 18%,
+        rgba(0,0,0,0.55) 45%,
+        rgba(0,0,0,0.15) 100%
+    ),
+    url('toms.png');
+}
+
+.identity-bg{
+    background-image:
+    linear-gradient(
+        to right,
+        rgba(0,0,0,0.88) 18%,
+        rgba(0,0,0,0.55) 45%,
+        rgba(0,0,0,0.15) 100%
+    ),
+    url('identity-bg.png');
+}
+
+.safety-bg{
+    background-image:
+    linear-gradient(
+        to right,
+        rgba(0,0,0,0.88) 18%,
+        rgba(0,0,0,0.55) 45%,
+        rgba(0,0,0,0.15) 100%
+    ),
+    url('safety-bg.png');
+}
+
+.security-bg{
+    background-image:
+    linear-gradient(
+        to right,
+        rgba(0,0,0,0.88) 18%,
+        rgba(0,0,0,0.55) 45%,
+        rgba(0,0,0,0.15) 100%
+    ),
+    url('security-bg.png');
+}
+
+.mobility-bg{
+    background-image:
+    linear-gradient(
+        to right,
+        rgba(0,0,0,0.88) 18%,
+        rgba(0,0,0,0.55) 45%,
+        rgba(0,0,0,0.15) 100%
+    ),
+    url('mobility-bg.png');
+}
+
+.crowd-bg{
+    background-image:
+    linear-gradient(
+        to right,
+        rgba(0,0,0,0.88) 18%,
+        rgba(0,0,0,0.55) 45%,
+        rgba(0,0,0,0.15) 100%
+    ),
+    url('crowd-bg.png');
+}
+.toms-bg,
+.identity-bg,
+.safety-bg,
+.security-bg,
+.mobility-bg,
+.crowd-bg{
+
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
 }
 .product-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at top left, rgba(34,198,105,0.08) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s;
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.05) 0%,
+    rgba(0,0,0,0.35) 45%,
+    rgba(0,0,0,0.92) 100%
+  );
+
+  z-index: 1;
 }
 .product-card:hover {
   border-color: rgba(34,198,105,0.4);
@@ -1134,8 +1221,11 @@ section {
   border: 1px solid var(--border);
   display: flex; align-items: center; justify-content: center;
   font-size: 26px;
-  margin-bottom: 24px;
   transition: all 0.3s;
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  z-index: 3;
 }
 .product-card:hover .product-card-icon {
   background: rgba(34,198,105,0.15);
@@ -1146,7 +1236,7 @@ section {
   font-size: 18px;
   font-weight: 700;
   color: var(--text-white);
-  margin-bottom: 12px;
+  margin-top: auto;
 }
 .product-card-desc {
   font-size: 14px;
@@ -2366,14 +2456,12 @@ footer {
     <!-- FEATURE LIST -->
     <div class="toms-features-list reveal">
       <div class="toms-feature-item">
-        <div class="toms-feature-num">01</div>
         <div class="toms-feature-body">
           <div class="toms-feature-title">Real-Time Litter Detection</div>
           <div class="toms-feature-desc">Computer vision models identify littering events in milliseconds across all connected camera feeds — day or night.</div>
         </div>
       </div>
       <div class="toms-feature-item">
-        <div class="toms-feature-num">02</div>
         <div class="toms-feature-body">
           <div class="toms-feature-title">Existing CCTV Compatible</div>
           <div class="toms-feature-desc">Zero hardware replacement needed. TOMS works as an intelligent overlay on your existing surveillance infrastructure.</div>
@@ -2381,7 +2469,6 @@ footer {
         </div>
       </div>
       <div class="toms-feature-item">
-        <div class="toms-feature-num">03</div>
         <div class="toms-feature-body">
           <div class="toms-feature-title">Instant Admin Alerts</div>
           <div class="toms-feature-desc">Administrators receive immediate notifications with timestamped evidence — enabling accountability and deterrence.</div>
@@ -2389,7 +2476,6 @@ footer {
         </div>
       </div>
       <div class="toms-feature-item">
-        <div class="toms-feature-num">04</div>
         <div class="toms-feature-body">
           <div class="toms-feature-title">Analytics & Reporting</div>
           <div class="toms-feature-desc">Centralized dashboard tracks hotspots, frequencies, and trends. Data-driven insights to guide cleanliness initiatives.</div>
@@ -2426,39 +2512,33 @@ footer {
   </div>
 
   <div class="products-grid">
-    <div class="product-card reveal">
-      <div class="product-card-number">01</div>
+    <div class="product-card toms-bg reveal">
       <div class="product-card-icon">🤖</div>
       <div class="product-card-title">TrashBot — TOMS</div>
       <div class="product-card-desc">AI-based litter detection and hygiene violation monitoring. India's first patented offender tracking system compatible with existing CCTV networks.</div>
 
     </div>
-    <div class="product-card reveal">
-      <div class="product-card-number">02</div>
+    <div class="product-card identity-bg reveal">
       <div class="product-card-icon">👁️</div>
       <div class="product-card-title">Identity & Access Intelligence</div>
       <div class="product-card-desc">Smart facial recognition and automated access control. Eliminate manual checkpoints and unauthorized entries with AI-verified identity management.</div>
     </div>
-    <div class="product-card reveal">
-      <div class="product-card-number">03</div>
+    <div class="product-card safety-bg reveal">
       <div class="product-card-icon">🔥</div>
       <div class="product-card-title">Safety & Hazard Detection</div>
       <div class="product-card-desc">Detect fire, smoke, unsafe behavior and workplace hazards before they escalate. Automated alerts to safety teams with visual evidence.</div>
     </div>
-    <div class="product-card reveal">
-      <div class="product-card-number">04</div>
+    <div class="product-card security-bg reveal">
       <div class="product-card-icon">🚨</div>
       <div class="product-card-title">Security & Threat Detection</div>
       <div class="product-card-desc">Real-time identification of security threats, intrusions, and suspicious behavior. Proactive intelligence rather than post-incident review.</div>
     </div>
-    <div class="product-card reveal">
-      <div class="product-card-number">05</div>
+    <div class="product-card mobility-bg reveal">
       <div class="product-card-icon">🚗</div>
       <div class="product-card-title">Mobility & Vehicle Intelligence</div>
       <div class="product-card-desc">Vehicle tracking, ANPR (automatic number plate recognition) and smart traffic insights for campuses and gated communities.</div>
     </div>
-    <div class="product-card reveal">
-      <div class="product-card-number">06</div>
+    <div class="product-card crowd-bg reveal">
       <div class="product-card-icon">👥</div>
       <div class="product-card-title">Crowd & Behavior Analytics</div>
       <div class="product-card-desc">Monitor crowd density, unusual gatherings and behavioral anomalies. Proactively manage public spaces with intelligent heatmaps and flow analysis.</div>
